@@ -1,41 +1,27 @@
 package ru.job4j.generics;
 
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
-public class SimpleArray<T> implements Iterator<T> {
+public class SimpleArray<T> implements Iterable<T> {
+
+    private int count = 0;
 
     public SimpleArray[] myArray = new SimpleArray[10];
 
-    public T add(T model) {
-        SimpleArray[] result = new SimpleArray[10];
-        for (int index = 0; index <= myArray.length - 1; index++) {
-            if (myArray[index] == null) {
-                myArray[index] = (SimpleArray) model;
-            }
-            result = myArray;
-
-        }
-        return (T) result;
+    public void add(T model) {
+        myArray[count++] = (SimpleArray) model;
     }
 
-    public T set(int index, T model) {
-        SimpleArray[] result = new SimpleArray[10];
-        for (int i = 0; i <= myArray.length - 1; index++) {
-            if(myArray[i] == myArray[index]) {
-                myArray[i] = (SimpleArray) model;
-            }
-            result = myArray;
-        }
 
-        return (T) result;
+    public void set(int index, T model) {
+        myArray[index] = (SimpleArray) model;
     }
 
-    public T remove(int index) {
+    public void remove(int index) {
         SimpleArray[] result = new SimpleArray[myArray.length - 1];
         System.arraycopy(myArray, index + 1, result, index, myArray.length - 1);
-        return (T) result;
     }
 
     public T get(int index) {
@@ -49,16 +35,23 @@ public class SimpleArray<T> implements Iterator<T> {
 
     }
 
-    private int pos=0;
-
-
     @Override
-    public boolean hasNext() {
-           return myArray.length>pos;
+    public Iterator<T> iterator() {
+        Iterator<T> num = new Iterator<T>() {
+
+            @Override
+            public boolean hasNext() {
+                return count< myArray.length;
+            }
+
+            @Override
+            public T next() {
+                return (T) myArray[count++];
+            }
+
+        };
+        return num;
     }
 
-    @Override
-    public T next() {
-        return (T) myArray[pos++];
-    }
+
 }
