@@ -14,7 +14,6 @@ public class SimpleArray<T> implements Iterable<T> {
         myArray[count++] = (SimpleArray) model;
         }
 
-
     public void set(int index, T model) {
         myArray[index] = (SimpleArray) model;
         }
