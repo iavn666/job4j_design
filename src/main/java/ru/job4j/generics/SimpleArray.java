@@ -16,40 +16,38 @@ public class SimpleArray<T> implements Iterable<T> {
 
 
     public void set(int index, T model) {
-        Objects.checkIndex(index, myArray.length);
+        Objects.checkIndex(index, count);
         myArray[index] = model;
     }
 
     public void remove(int index) {
-        Objects.checkIndex(index, myArray.length);
-        T[] result = (T[]) new Object[myArray.length - 1];
+        Objects.checkIndex(index, count);
+        T [] result = (T[]) new Object[myArray.length - 1];
         System.arraycopy(myArray, index + 1, result, index, myArray.length - 1);
+        count--;
     }
 
     public T get(int index) {
-        Objects.checkIndex(index, myArray.length);
-        T result = null;
-        for (int i = 0; i <= myArray.length - 1; i++ ) {
-            if (myArray[i] == myArray[index]) {
-                result = myArray[i];
-            }
-        }
-        return result;
+        Objects.checkIndex(index, count);
+        return myArray[index];
 
     }
 
     @Override
     public Iterator<T> iterator() {
-        Iterator<T> num = new Iterator<T>() {
+
+        Iterator num = new Iterator<>() {
+
+            private int current;
 
             @Override
             public boolean hasNext() {
-                return count< myArray.length;
+                return current < count;
             }
 
             @Override
             public T next() {
-                return (T) myArray[count++];
+                return myArray[current++];
             }
 
         };
