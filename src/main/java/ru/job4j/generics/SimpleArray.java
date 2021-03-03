@@ -1,6 +1,7 @@
 package ru.job4j.generics;
 
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -22,8 +23,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public void remove(int index) {
         Objects.checkIndex(index, count);
-        T [] result = (T[]) new Object[myArray.length - 1];
-        System.arraycopy(myArray, index + 1, result, index, myArray.length - 1);
+        System.arraycopy(myArray, index + 1, myArray, index, myArray.length - 1 - index);
         count--;
     }
 
@@ -53,6 +53,13 @@ public class SimpleArray<T> implements Iterable<T> {
         };
         return num;
     }
+
+
+
+
+
+
+
 
 
 }
